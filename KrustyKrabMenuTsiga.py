@@ -5,7 +5,7 @@ friesSelected=False
 mealSelected=False
 order=[]
 
-#the menu (hint:make sure to type food as in menu)
+#the menu (hint:make sure to type food in abbrivaiation like: dkm)
 kKM=print("\n")
 print("\tKrabby Patty...........1.25            Krabby Meal........3.50")
 print("\t   w/sea cheese........1.50            Double Krabby M....3.75")
@@ -27,52 +27,52 @@ print("\t   Salty Sauce......... .50")
 
 #krabby meals
 krabbyMeal=input("Would you like a krabby meal? ")
-if (krabbyMeal=="yes"): #if the user says y, then will give you a list of the meals
+if (krabbyMeal=="y"): #if the user says y, then will give you a list of the meals
     mealSelected=True #ask user what meal they want if ui = yes
     krabbyMeal=input("Would you like a Krabby Meal for 3.50, a Double Krabby Meal for 3.75, a Triple Krabby Meal for 4.00,a Salty Sea Dog for 1.25, a FootLong for 2.00, a Sailors Surprise for 3.00, or a Golden loaf for 2.50?  ")
-elif (krabbyMeal=="no"): #is n, then a meal is not added to your list
+elif (krabbyMeal=="n"): #is n, then a meal is not added to your list
     mealSelected=False
 
 #if the user selected on of the meal options, then its total will be added
-if krabbyMeal=="Krabby Meal":
+if krabbyMeal=="km":
     total+=3.50
-elif krabbyMeal=="Double Krabby Meal":
+elif krabbyMeal=="dkm":
     total+=2.75
-elif krabbyMeal=="Triple Krabby Meal":
+elif krabbyMeal=="tkm":
     total+=4.00
-elif krabbyMeal=="Salty Sea Dog":
+elif krabbyMeal=="ssd":
     total+=1.25
-elif krabbyMeal=="Footlong":
+elif krabbyMeal=="fl":
     total+=2.00
-elif krabbyMeal=="Sailars Surprise":
+elif krabbyMeal=="ss":
     total+=3.00
-elif krabbyMeal=="Golden Loaf":
+elif krabbyMeal=="gl":
     total+=2.00
 order.append(krabbyMeal)#adds meal to receit
 
 krabbyPatty=input("Would you like a krabby patty? ")
-if krabbyPatty=="yes":
+if krabbyPatty=="y":
     krabbyPatty = input("What kind of Krabby Patty would you like? ")
 #print(krabbyPatty)
 
-if krabbyPatty=="Krabby Patty":
+if krabbyPatty=="kp":
     krabbyPattySelected = True #if the user wants sea cheese on their patty then, the total would add .25 to the patty cost(this is with all the patty options)
     krabbyPatty2=input("Would you like sea cheese with that? ")
-    if krabbyPatty=="yes":
+    if krabbyPatty=="y":
         total += 1.50 #added .25 to the patty cost
     else:
          total += 1.25 #original patty cost
-elif krabbyPatty=="Double Krabby Patty":
+elif krabbyPatty=="dkp":
     krabbyPattySelected = True
     krabbyPatty2=input("Would you like sea cheese with that? ")
-    if krabbyPatty=="yes":
+    if krabbyPatty=="y":
         total += 2.25
     else:
          total += 2.00 
-elif krabbyPatty=="Triple Krabby Patty":
+elif krabbyPatty=="tkp":
     krabbyPattySelected = True
     krabbyPatty2=input("Would you like sea cheese with that? ")
-    if krabbyPatty=="yes":
+    if krabbyPatty=="y":
         total += 3.25
     else:
          total += 3.00
@@ -80,12 +80,12 @@ order.append(krabbyPatty)#adds patty to receit
 
 
 beverage = input("Would you like a drink, yes or no? ")
-if(beverage=="yes"):
+if(beverage=="y"):
     beverageSelected = True
     beverage=input("Would you like a kelp shake or a seafoam soda? ")
-if(beverage=="seafoam soda"):
+if(beverage=="ss"):
     beverage2=input("s for $1.00, m for $1.25, and l for $1.50 ")
-elif beverage == "kelp shake":
+elif beverage == "ks":
     beverage2=False #seafoam soda is not picked
     total+=2.00
 
@@ -99,12 +99,12 @@ order.append(beverage)#adds drink to receit
 
 #iteration 3 asking for fries
 kelpFries = input("Would you like some fries, yes or no? ")
-if(kelpFries=="yes"): 
+if(kelpFries=="y"): 
     friesSelected = True
 fries=input("Coral Bits or Kelp Rings? ")
-if fries=="Coral Bits":
+if fries=="cb":
     coralBits=input("s for $1.00, m for $1.25, or l for $1.50? ")
-elif fries=="Kelp Rings": #if kelp rings, then 2.00 is added, and no size picking is needed
+elif fries=="kr": #if kelp rings, then 2.00 is added, and no size picking is needed
     total += 1.50
         
 #if coral bits is selected, then the user will pick the size of the fries    
@@ -114,7 +114,7 @@ elif (coralBits == "m"):
   total = total + 1.25
 elif (coralBits == "l"):         #nested conditional statement
         total +=1.50
-order.append(coralBits)
+order.append(fries)
 
 
 #iteration 4
@@ -139,7 +139,11 @@ taxAmount = subTotal*(1+tax/100) #the tax amount
 
 finalAmount = subTotal+taxAmount #the final amount
 
-order=[]
+sT=(round(subTotal, 2)) #round the totals to 2 decimals
+tA=(round(taxAmount, 2))
+fA=(round(finalAmount, 2))
+
+order=[krabbyMeal,krabbyPatty,beverage,fries,saltySauce]
 
 #the receit
 print(f'''
@@ -149,25 +153,39 @@ Your order is:
 {beverage},
 {fries},
 {saltySauce} saltysauces
-tax is {taxAmount}
-Subtotal is {subTotal}
-For a total of ${finalAmount}
+tax is ${tA}
+Subtotal is ${sT}
+For a total of ${fA}
 '''.format(krabbyPatty,beverage,fries,saltySauce,total))
 
 addOrdelete=False
 addOrdelete=input("Would you like to add or delete anything on the order? Yes or No ") #ask the user if they want to delete or add to the receit
-if addOrdelete=="No":
+if addOrdelete=="n": #if no, then the program is done
     addOrdelete=False
-elif addOrdelete=="yes":
+elif addOrdelete=="y": #if yes, then user adds or deletes an item
     addOrdelete=True
-    addOrdelete=input("Add or Delete? ")
+    addOrdelete=input("add or delete? ")
 if addOrdelete==("add"):
     add=input("What would you like to add? ")
     while add!="q":
-        order.append()
+        order.append(add)
 elif addOrdelete==("delete"):
     delete=input("What would you like to delete? ")
     while delete!="q":
-        order.remove()
+        order.remove(delete)
+
+if addOrdelete==True: #if the user added or deleted anything, a new order receit will be printed
+    print(f'''
+    Your new order is:
+    {krabbyMeal}, 
+    {krabbyPatty},
+    {beverage},
+    {fries},
+    {saltySauce} saltysauces
+    tax is ${tA}
+    Subtotal is ${sT}
+    For a total of ${fA}
+    '''.format(krabbyPatty,beverage,fries,saltySauce,total))
+
 
 #print('${:,.2f}'.format(total)) #string formatting
